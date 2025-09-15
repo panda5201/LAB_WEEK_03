@@ -22,16 +22,20 @@ class MainActivity : AppCompatActivity(), CoffeeListener {
             insets
         }
 
+        // Tampilkan ListFragment pertama kali
         if (savedInstanceState == null) {
-            val listFragment = ListFragment()
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, listFragment)
+                .replace(R.id.fragment_container, ListFragment())
                 .commit()
         }
     }
 
     override fun onSelected(id: Int) {
-        val detailFragment = DetailFragment.newInstance(id)
+        val detailFragment = DetailFragment()
+        val bundle = Bundle()
+        bundle.putInt(DetailFragment.COFFEE_ID, id)
+        detailFragment.arguments = bundle
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, detailFragment)
             .addToBackStack(null)

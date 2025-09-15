@@ -1,6 +1,7 @@
 package com.example.lab_week_03
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,31 +9,29 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 class DetailFragment : Fragment() {
-    companion object {
-        private const val COFFEE_ID = "COFFEE_ID"
-
-        fun newInstance(coffeeId: Int) =
-            DetailFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(COFFEE_ID, coffeeId)
-                }
-            }
-    }
 
     private val coffeeTitle: TextView?
         get() = view?.findViewById(R.id.coffee_title)
     private val coffeeDesc: TextView?
         get() = view?.findViewById(R.id.coffee_desc)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("DetailFragment", "onCreate")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("DetailFragment", "onCreateView")
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("DetailFragment", "onViewCreated")
+
         val coffeeId = arguments?.getInt(COFFEE_ID, 0) ?: 0
         setCoffeeData(coffeeId)
     }
@@ -52,5 +51,44 @@ class DetailFragment : Fragment() {
                 coffeeDesc?.text = getString(R.string.latte_desc)
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("DetailFragment", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("DetailFragment", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("DetailFragment", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("DetailFragment", "onStop")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("DetailFragment", "onDestroyView")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("DetailFragment", "onDestroy")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("DetailFragment", "onDetach")
+    }
+
+    companion object {
+        const val COFFEE_ID = "coffee_id"
     }
 }
