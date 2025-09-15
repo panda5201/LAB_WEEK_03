@@ -15,11 +15,6 @@ class DetailFragment : Fragment() {
     private val coffeeDesc: TextView?
         get() = view?.findViewById(R.id.coffee_desc)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("DetailFragment", "onCreate")
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,10 +25,15 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("DetailFragment", "onViewCreated")
 
         val coffeeId = arguments?.getInt(COFFEE_ID, 0) ?: 0
         setCoffeeData(coffeeId)
+
+        view.findViewById<View>(R.id.btn_back).setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ListFragment())
+                .commit()
+        }
     }
 
     fun setCoffeeData(id: Int) {
@@ -50,42 +50,15 @@ class DetailFragment : Fragment() {
                 coffeeTitle?.text = getString(R.string.latte_title)
                 coffeeDesc?.text = getString(R.string.latte_desc)
             }
+            R.id.cappuccino -> {
+                coffeeTitle?.text = getString(R.string.cappuccino_title)
+                coffeeDesc?.text = getString(R.string.cappuccino_desc)
+            }
+            R.id.mocha -> {
+                coffeeTitle?.text = getString(R.string.mocha_title)
+                coffeeDesc?.text = getString(R.string.mocha_desc)
+            }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("DetailFragment", "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("DetailFragment", "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("DetailFragment", "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("DetailFragment", "onStop")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d("DetailFragment", "onDestroyView")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("DetailFragment", "onDestroy")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d("DetailFragment", "onDetach")
     }
 
     companion object {
